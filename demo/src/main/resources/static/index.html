@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventra | File-Based Inventory System</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --dark: #111827;
+        }
+        
+        /* Reset margins to prevent any default browser spacing */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background-color: var(--dark);
+            color: var(--dark);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #1b434b 0%, #00F0FF 100%);
+            color: white;
+            height: 100vh; /* Locks the height to exactly 100% of the viewport */
+            width: 100%;
+            box-sizing: border-box; /* Forces padding to stay within the 100vh limit */
+            display: flex;               
+            flex-direction: column;
+            align-items: center;         
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero-title {
+            font-weight: 800;
+            font-size: 3.5rem;
+            letter-spacing: -0.025em;
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 40px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section (Exactly 1 Screen Height) -->
+    <header class="hero-section">
+        <div class="container">
+            <h1 class="hero-title"><i class="fas fa-box-open me-3"></i>Inventra</h1>
+            <p class="hero-subtitle">The ultimate file-based inventory management system. Add products, track cumulative valuation, and update stock effortlessly.</p>
+            <a href="dashboard.html" class="btn btn-light btn-lg text-primary fw-bold px-10 rounded-pill shadow">Access Dashboard</a>
+        </div>
+    </header>
+
+    <!-- Footer (Only visible when scrolled down) -->
+    <footer class="text-center">
+        <div class="container">
+            <h5 class="fw-bold mb-6">Inventra - File-Based Inventory System</h5>
+            <p class="text-white-50 mb-8">Developed with precision and optimized for performance.</p>
+            
+            <div class="d-flex justify-content-center align-items-center gap-2 mb-4">
+                <span class="badge bg-secondary px-3 py-2">System Architects & Creators:</span>
+            </div>
+            
+            <div class="row justify-content-center mb-4 text-info">
+                <div class="col-auto"><strong>Pradyumna Raskar</strong></div>
+                <div class="col-auto">|</div>
+                <div class="col-auto"><strong>Sameer Hota</strong></div>
+                <div class="col-auto">|</div>
+                <div class="col-auto"><strong>Pradyun Sharma</strong></div>
+                <div class="col-auto">|</div>
+                <div class="col-auto"><strong>Yogini Ingale</strong></div>
+            </div>
+
+            <hr class="border-secondary">
+            <p class="small text-white-50 mb-0">&copy; 2026 Inventra Systems. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
