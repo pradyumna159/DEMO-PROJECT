@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventra | File-Based Inventory System</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-hover: #4338CA;
+            --dark: #111827;
+            --light: #F3F4F6;
+        }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #fbf7f7;
+            color: var(--dark);
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #1b434b 0%, #00F0FF 100%);
+            color: white;
+            min-height: 100vh;   
+            display: flex;               
+            align-items: center;         
+            justify-content: center;
+            padding: 100px 0 80px;
+            text-align: center;
+        }
+        .hero-title {
+            font-weight: 800;
+            font-size: 3.5rem;
+            letter-spacing: -0.025em;
+            margin-bottom: 20px;
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-header-custom {
+            background-color: var(--primary);
+            color: white;
+            border-radius: 12px 12px 0 0 !important;
+            padding: 15px 20px;
+            font-weight: 600;
+        }
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            padding: 10px 20px;
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
+        }
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.25);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div class="container">
+            <h1 class="hero-title"><i class="fas fa-box-open me-3"></i>Inventra</h1>
+            <p class="hero-subtitle">The ultimate file-based inventory management system. Add products, track cumulative valuation, and update stock effortlessly.</p>
+            <a href="#dashboard" class="btn btn-light btn-lg text-primary fw-bold px-10 rounded-pill shadow">Access Dashboard</a>
+        </div>
+    </header>
+
+    <!-- Quick Actions Dashboard -->
+    <main class="container my-10" id="dashboard">
+        <div class="text-center mb-10">
+            <h2 class="fw-bold">Inventory Control Center</h2>
+            <p class="text-muted">Manage your products via our secure backend processing.</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- 1. Add Product Form -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-header-custom d-flex justify-content-between align-items-center">
+                        <span><i class="fas fa-plus-circle me-2"></i>1. Add Product</span>
+                    </div>
+                    <div class="card-body">
+                        <!-- REMOVED action/method, ADDED id="addForm" -->
+                        <form id="addForm">
+                            <div class="mb-3">
+                                <label class="form-label text-muted small fw-bold">Product ID</label>
+                                <input type="number" class="form-control" id="addId" required placeholder="e.g., 101">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-muted small fw-bold">Product Name</label>
+                                <input type="text" class="form-control" id="addName" required placeholder="e.g., Wireless Mouse">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-muted small fw-bold">Quantity</label>
+                                <input type="number" class="form-control" id="addQty" required placeholder="e.g., 50">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-muted small fw-bold">Price ($)</label>
+                                <input type="number" step="0.01" class="form-control" id="addPrice" required placeholder="e.g., 29.99">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mt-2">Add to File</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Update Stock Form -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-header-custom d-flex justify-content-between align-items-center" style="background-color: #059669;">
+                        <span><i class="fas fa-sync-alt me-2"></i>3. Update Stock Quantity</span>
+                    </div>
+                    <div class="card-body">
+                        <!-- REMOVED action/method, ADDED id="updateForm" -->
+                        <form id="updateForm">
+                            <div class="mb-3">
+                                <label class="form-label text-muted small fw-bold">Target Product ID</label>
+                                <input type="number" class="form-control" id="updateId" required placeholder="Enter existing ID">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label text-muted small fw-bold">New Quantity</label>
+                                <input type="number" class="form-control" id="newQty" required placeholder="Enter updated stock level">
+                            </div>
+                            <button type="submit" class="btn w-100 mt-2 text-white" style="background-color: #059669;">Update Stock</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Delete Product Form & View Action -->
+            <div class="col-lg-4 col-md-12 d-flex flex-column gap-4">
+                
+                <div class="card">
+                    <div class="card-header-custom d-flex justify-content-between align-items-center" style="background-color: #DC2626;">
+                        <span><i class="fas fa-trash-alt me-2"></i>4. Delete Product</span>
+                    </div>
+                    <div class="card-body">
+                        <!-- REMOVED action/method, ADDED id="deleteForm" -->
+                        <form id="deleteForm">
+                            <div class="mb-4">
+                                <label class="form-label text-muted small fw-bold">Product ID to Delete</label>
+                                <input type="number" class="form-control" id="deleteId" required placeholder="Enter ID to remove">
+                            </div>
+                            <button type="submit" class="btn w-100 text-white" style="background-color: #DC2626;">Delete Permanently</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card bg-dark text-white text-center">
+                    <div class="card-body py-4">
+                        <i class="fas fa-list-alt fa-3x mb-3 text-info"></i>
+                        <h4 class="fw-bold">2. View Inventory</h4>
+                        <p class="small text-white-50">Generate complete report and total cumulative valuation.</p>
+                        <!-- CHANGED to a standard button that triggers a Modal -->
+                        <button type="button" class="btn btn-info w-100 fw-bold text-dark" onclick="viewInventory()">View Current Data</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- INVENTORY MODAL (Popup to show the data!) -->
+    <div class="modal fade" id="inventoryModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title"><i class="fas fa-boxes me-2"></i>Current Inventory</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total Value</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventoryTableBody">
+                            <!-- Data will be injected here via JavaScript -->
+                        </tbody>
+                    </table>
+                    <h5 class="text-end fw-bold mt-3" id="totalValuation">Total Valuation: $0.00</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <h5 class="fw-bold mb-3">Inventra - File-Based Inventory System</h5>
+            <p class="text-white-50 mb-4">Developed with precision and optimized for performance.</p>
+            
+            <div class="d-flex justify-content-center align-items-center gap-2 mb-4">
+                <span class="badge bg-secondary px-3 py-2">System Architects & Creators:</span>
+            </div>
+            
+            <div class="row justify-content-center mb-4 text-info">
+                <div class="col-auto"><strong>Pradyumna Raskar</strong></div>
+                <div class="col-auto">|</div>
+                <div class="col-auto"><strong>Sameer Hota</strong></div>
+                <div class="col-auto">|</div>
+                <div class="col-auto"><strong>Pradyun Sharma</strong></div>
+                <div class="col-auto">|</div>
+                <div class="col-auto"><strong>Yogini Ingale</strong></div>
+            </div>
+
+            <hr class="border-secondary">
+            <p class="small text-white-50 mb-0">&copy; 2026 Inventra Systems. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript to connect to Spring Boot -->
+    <script>
+        const API_BASE = '/api/products';
+
+        // 1. ADD PRODUCT
+        document.getElementById('addForm').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Prevents page reload
+            
+            const product = {
+                id: document.getElementById('addId').value,
+                name: document.getElementById('addName').value,
+                quantity: document.getElementById('addQty').value,
+                price: document.getElementById('addPrice').value
+            };
+
+            try {
+                const response = await fetch(API_BASE + '/add-product', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(product)
+                });
+                
+                if(response.ok) {
+                    alert('🎉 Product Added Successfully!');
+                    this.reset(); // Clear the form
+                }
+            } catch(err) {
+                alert('❌ Error adding product.');
+            }
+        });
+        
+        // 2. UPDATE STOCK
+         document.getElementById('updateForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const id = document.getElementById('updateId').value;
+            const newQty = document.getElementById('newQty').value;
+
+
+            try {
+                // Notice the URL matches the @PutMapping in Java
+                const response = await fetch(`${API_BASE}/update-stock/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: newQty
+                });
+                
+                if(response.ok) {
+                    const data = await response.json();
+                    if(data) {
+                        alert('🔄 Stock Updated Successfully!');
+                        this.reset();
+                    } else {
+                        alert('❌ Product ID not found.');
+                    }
+                }
+            } catch(err) {
+                alert('❌ Error updating stock.');
+            }
+        });
+         // 3. DELETE PRODUCT
+        document.getElementById('deleteForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const id = document.getElementById('deleteId').value;
+
+            try {
+                // Notice the URL matches the @DeleteMapping in Java
+                const response = await fetch(`${API_BASE}/delete-product/${id}`, {
+                    method: 'DELETE'
+                });
+                
+                if(response.ok) {
+                    const text = await response.text();
+                    alert(text); // Shows the string returned from Java Controller
+                    this.reset();
+                }
+            } catch(err) {
+                alert('❌ Error deleting product.');
+            }
+        });
+
+
+
+        // 4. VIEW INVENTORY (Fetches data and populates the Bootstrap Modal)
+        async function viewInventory() {
+            try {
+                const response = await fetch(API_BASE);
+                const products = await response.json();
+                
+                const tableBody = document.getElementById('inventoryTableBody');
+                tableBody.innerHTML = ''; // Clear old data
+                let cumulativeTotal = 0;
+
+                if (products.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="5" class="text-center">Inventory is empty.</td></tr>';
+                } else {
+                    products.forEach(p => {
+                        const totalValue = p.price * p.quantity;
+                        cumulativeTotal += totalValue;
+                        
+                        const row = `
+                            <tr>
+                                <td>${p.id}</td>
+                                <td>${p.name}</td>
+                                <td>${p.quantity}</td>
+                                <td>$${p.price.toFixed(2)}</td>
+                                <td>$${totalValue.toFixed(2)}</td>
+                            </tr>
+                        `;
+                        tableBody.innerHTML += row;
+                    });
+                }
+                
+                document.getElementById('totalValuation').innerText = `Total Valuation: $${cumulativeTotal.toFixed(2)}`;
+                
+                // Show the modal
+                const modal = new bootstrap.Modal(document.getElementById('inventoryModal'));
+                modal.show();
+
+            } catch(err) {
+                alert('❌ Error loading inventory.');
+                console.error(err);
+            }
+        }
+    </script>
+</body>
+</html>
