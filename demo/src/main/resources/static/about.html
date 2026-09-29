@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventra | Project Overview</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --dark: #111827;
+        }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #fbf7f7;
+            color: var(--dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        main {
+            flex: 1;
+        }
+        .top-nav {
+            background: linear-gradient(135deg, #1b434b 0%, #00F0FF 100%);
+            padding: 15px 0;
+        }
+        .doc-header {
+            background-color: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 40px 0;
+            text-align: center;
+        }
+        .section-title {
+            color: var(--primary);
+            font-weight: 700;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 25px;
+            margin-top: 40px;
+        }
+        .feature-list li {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+        .future-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            height: 100%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary);
+        }
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <div class="top-nav text-white shadow-sm">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 fw-bold"><i class="fas fa-file-alt me-2"></i>Inventra Docs</h5>
+            <div>
+                <a href="index.html" class="btn btn-sm btn-outline-light rounded-pill me-2">Home</a>
+                <a href="dashboard.html" class="btn btn-sm btn-light text-dark rounded-pill fw-bold">Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <header class="doc-header shadow-sm">
+        <div class="container">
+            <h1 class="fw-bold mb-3">Inventra – File-Based Inventory Management System</h1>
+            <p class="text-muted lead mx-auto" style="max-width: 800px;">A web-based application designed to simplify and automate the management of inventory records.</p>
+            
+            <!-- Tech Stack Context -->
+            <div class="mt-4 d-flex justify-content-center gap-2 flex-wrap">
+                <span class="badge bg-secondary px-3 py-2"><i class="fab fa-java me-1"></i> Maven Java Backend</span>
+                <span class="badge bg-secondary px-3 py-2"><i class="fas fa-file-code me-1"></i> File-Based IO</span>
+                <span class="badge bg-info text-dark px-3 py-2 fw-bold"><i class="fas fa-database me-1"></i> Phase 2: MySQL Relational Schema</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <!-- 1. Introduction -->
+                <h3 class="section-title">1. Introduction of the Topic</h3>
+                <p class="fs-5 lh-lg text-secondary">
+                    Inventra – File-Based Inventory Management System is a web-based application designed to simplify and automate the management of inventory records. Traditional inventory management methods often rely on manual registers or spreadsheets, which can be time-consuming and may lead to errors, duplicate entries, or difficulty in tracking stock.
+                </p>
+                <p class="fs-5 lh-lg text-secondary">
+                    Inventra provides a simple interface through which users can add products, view inventory, update stock quantities, and delete products. Each product can be maintained with important information such as Product ID, Product Name, Quantity, and Price. The system also calculates the total cumulative inventory valuation, helping users understand the overall value of their available stock.
+                </p>
+                <p class="fs-5 lh-lg text-secondary">
+                    The project demonstrates how a file-based approach can be used to store and manage inventory data efficiently without requiring a complex database system. It is particularly useful for small businesses, educational projects, and organizations that need a simple and lightweight inventory solution.
+                </p>
+
+                <!-- 2. Importance -->
+                <h3 class="section-title">2. Importance of the Topic</h3>
+                <p class="fs-5 mb-4 text-secondary">Inventory management is an important part of any business because maintaining the correct amount of stock directly affects daily operations. An effective inventory system helps prevent overstocking, understocking, product loss, and inaccurate records. The importance of Inventra includes:</p>
+                
+                <ul class="list-unstyled feature-list text-secondary">
+                    <li><i class="fas fa-check-circle text-success me-3"></i><strong>Easy stock management:</strong> Products can be added, updated, viewed, and deleted through a simple interface.</li>
+                    <li><i class="fas fa-check-circle text-success me-3"></i><strong>Reduced manual work:</strong> It minimizes dependency on handwritten records and repetitive calculations.</li>
+                    <li><i class="fas fa-check-circle text-success me-3"></i><strong>Improved accuracy:</strong> Product IDs, quantities, and prices can be maintained systematically.</li>
+                    <li><i class="fas fa-check-circle text-success me-3"></i><strong>Quick access to information:</strong> Users can view the current inventory whenever required.</li>
+                    <li><i class="fas fa-check-circle text-success me-3"></i><strong>Inventory valuation:</strong> The system can calculate the total value of available products.</li>
+                    <li><i class="fas fa-check-circle text-success me-3"></i><strong>Cost-effective solution:</strong> A file-based system can be implemented without the complexity of a full database.</li>
+                    <li><i class="fas fa-check-circle text-success me-3"></i><strong>Suitable for small-scale businesses:</strong> It can serve as a basic inventory solution for shops, startups, and small organizations.</li>
+                    <li><i class="fas fa-check-circle text-success me-3"></i><strong>Educational value:</strong> The project demonstrates concepts such as file handling, CRUD operations, user interfaces, and data management.</li>
+                </ul>
+
+                <!-- 3. Future Needs -->
+                <h3 class="section-title">3. Future Needs of the Topic</h3>
+                <p class="fs-5 mb-4 text-secondary">As businesses grow, inventory management systems need to become more advanced, automated, and secure. The current file-based system can be further developed into a complete inventory management platform. Future improvements can include:</p>
+
+                <div class="row g-4 mb-5">
+                    <div class="col-md-6">
+                        <div class="future-card">
+                            <h5 class="fw-bold"><i class="fas fa-database me-2 text-primary"></i>1. Database Integration</h5>
+                            <p class="text-muted mb-0">Replace file-based storage with MySQL, PostgreSQL, or another database for handling large amounts of data.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="future-card">
+                            <h5 class="fw-bold"><i class="fas fa-user-lock me-2 text-primary"></i>2. User Login & Authentication</h5>
+                            <p class="text-muted mb-0">Add secure login functionality with different roles such as administrator, manager, and employee.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="future-card">
+                            <h5 class="fw-bold"><i class="fas fa-qrcode me-2 text-primary"></i>3. Barcode/QR Code Integration</h5>
+                            <p class="text-muted mb-0">Products can be identified and updated quickly using barcode or QR-code scanning.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="future-card">
+                            <h5 class="fw-bold"><i class="fas fa-bell me-2 text-primary"></i>4. Low-Stock Alerts</h5>
+                            <p class="text-muted mb-0">The system can automatically notify users when the quantity of a product falls below a predefined level.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="future-card">
+                            <h5 class="fw-bold"><i class="fas fa-exchange-alt me-2 text-primary"></i>5. Sales & Purchase Management</h5>
+                            <p class="text-muted mb-0">Sales and purchase transactions can be integrated with inventory to automatically update stock.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="future-card">
+                            <h5 class="fw-bold"><i class="fas fa-chart-line me-2 text-primary"></i>6. Reports and Analytics</h5>
+                            <p class="text-muted mb-0">Graphs and reports can show stock levels, inventory valuation, sales trends, and product performance.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="future-card">
+                            <h5 class="fw-bold"><i class="fas fa-cloud me-2 text-primary"></i>7. Cloud-Based Access</h5>
+                            <p class="text-muted mb-0">The system can be hosted online so authorized users can access inventory information from different locations.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="future-card">
+                            <h5 class="fw-bold"><i class="fas fa-mobile-alt me-2 text-primary"></i>8. Mobile Application</h5>
+                            <p class="text-muted mb-0">A mobile version can allow users to manage stock using smartphones and tablets.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="future-card">
+                            <h5 class="fw-bold"><i class="fas fa-robot me-2 text-primary"></i>9. AI-Based Inventory Forecasting</h5>
+                            <p class="text-muted mb-0">Artificial intelligence can be used to analyze previous sales and predict future inventory requirements.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="future-card">
+                            <h5 class="fw-bold"><i class="fas fa-shield-alt me-2 text-primary"></i>10. Automated Backup & Security</h5>
+                            <p class="text-muted mb-0">Automatic backups, encryption, and access control can protect important inventory information.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conclusion -->
+                <div class="alert alert-primary border-0 shadow-sm p-4 text-dark" role="alert">
+                    <h4 class="fw-bold mb-3"><i class="fas fa-flag-checkered me-2"></i>Conclusion</h4>
+                    <p class="mb-0 fs-5">Inventra provides a simple foundation for understanding and implementing inventory management. Its file-based approach makes it lightweight and easy to use, while its modular design provides opportunities for future expansion into a database-driven, cloud-based, secure, and AI-assisted inventory management system.</p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <h5 class="fw-bold mb-3">Inventra - File-Based Inventory System</h5>
+            <p class="text-white-50 mb-4">Developed with precision and optimized for performance.</p>
+            
+            <div class="d-flex justify-content-center align-items-center gap-2 mb-4">
+                <span class="badge bg-secondary px-3 py-2">System Architects & Creators:</span>
+            </div>
+            
+            <div class="row justify-content-center mb-4 text-info">
+                <div class="col-auto"><strong>Pradyumna Raskar</strong></div>
+                <div class="col-auto">|</div>
+                <div class="col-auto"><strong>Sameer Hota</strong></div>
+                <div class="col-auto">|</div>
+                <div class="col-auto"><strong>Pradyun Sharma</strong></div>
+                <div class="col-auto">|</div>
+                <div class="col-auto"><strong>Yogini Ingale</strong></div>
+            </div>
+
+            <hr class="border-secondary">
+            <p class="small text-white-50 mb-0">&copy; 2026 Inventra Systems. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
