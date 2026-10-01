@@ -130,16 +130,24 @@
                     </div>
                     <div class="card-body">
                         <form id="updateForm">
-                            <div class="mb-3">
-                                <label class="form-label text-muted small fw-bold">Target Product ID</label>
-                                <input type="number" class="form-control" id="updateId" required placeholder="Enter existing ID">
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label text-muted small fw-bold">New Quantity</label>
-                                <input type="number" class="form-control" id="newQty" required placeholder="Enter updated stock level">
-                            </div>
-                            <button type="submit" class="btn w-100 mt-2 text-white" style="background-color: #059669;">Update Stock</button>
-                        </form>
+    <div class="mb-3">
+        <label class="form-label text-muted small fw-bold">Target Product ID</label>
+        <input type="number" class="form-control" id="qtyLabel" required placeholder="Enter existing ID">
+    </div>
+    <div class="mb-3">
+        <label class="form-label text-muted small fw-bold">Update Method</label>
+        <select class="form-select" id="updateType">
+            <option value="add">Add Additional Quantity (+)</option>
+            <option value="replace">Replace Entire Quantity (=)</option>
+        </select>
+    </div>
+    <div class="mb-4">
+        <!-- Added id="qtyLabel" to dynamically update -->
+        <label class="form-label text-muted small fw-bold" id="qtyLabel">Additional Units to Add</label>
+        <input type="number" class="form-control" id="newQty" required placeholder="e.g., 15 (Adds 15 to current stock)">
+    </div>
+    <button type="submit" class="btn w-100 mt-2 text-white" style="background-color: #059669;">Update Stock</button>
+</form>
                     </div>
                 </div>
             </div>
@@ -290,6 +298,19 @@
                 }
             } catch(err) {
                 alert('❌ Error updating stock.');
+            }
+        });
+        // Dynamic UI label switcher for Update Form
+        document.getElementById('updateType').addEventListener('change', function() {
+            const qtyLabel = document.getElementById('qtyLabel');
+            const qtyInput = document.getElementById('newQty');
+
+            if (this.value === 'add') {
+                qtyLabel.innerText = 'Additional Units to Add';
+                qtyInput.placeholder = 'e.g., 15 (Will add 15 to current stock)';
+            } else {
+                qtyLabel.innerText = 'New Total Quantity';
+                qtyInput.placeholder = 'e.g., 25 (Will set total stock directly to 25)';
             }
         });
          // 3. DELETE PRODUCT

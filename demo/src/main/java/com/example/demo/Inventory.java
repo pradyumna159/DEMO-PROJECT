@@ -1,6 +1,7 @@
 package com.example.demo;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Inventory {
     private ArrayList<Product> products;
@@ -48,7 +49,26 @@ public class Inventory {
         }
     }
 
+   public boolean addStock(int id, int additionalQty) {
+    // NOTE: Replace 'getProducts()' and 'saveProducts()' below 
+    // with the exact method names you already use in Inventory.java to read/write your file.
+    List<Product> products = getProducts(); 
+    boolean updated = false;
+
+    for (Product p : products) {
+        if (p.getId() == id) { // Correct primitive int comparison
+            p.setQuantity(p.getQuantity() + additionalQty);
+            updated = true;
+            break;
+        }
+    }
+
+    if (updated) {
+        saveToFile(); 
+    }
     
+    return updated;
+}
     public boolean deleteProduct(int id) {
         Product product = findProduct(id);
         if (product != null) {

@@ -33,6 +33,10 @@ public class ProductController {
         return inventory.addProduct(newProduct);
     }
    // 3. UPDATE PRODUCT (PUT - Stock & Price)
+   @PutMapping("/add-stock/{id}")
+public boolean addStock(@PathVariable int id, @RequestBody int additionalQty) {
+    return inventory.addStock(id, additionalQty);
+}
     @PutMapping("/update-stock/{id}")
     public Product updateStock(@PathVariable int id, @RequestBody int newQuantity) {
         return inventory.updateStock(id, newQuantity);
