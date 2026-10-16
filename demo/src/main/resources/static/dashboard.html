@@ -132,12 +132,12 @@
                         <form id="updateForm">
     <div class="mb-3">
         <label class="form-label text-muted small fw-bold">Target Product ID</label>
-        <input type="number" class="form-control" id="qtyLabel" required placeholder="Enter existing ID">
+        <input type="number" class="form-control" id="updateId" required placeholder="Enter existing ID">
     </div>
     <div class="mb-3">
         <label class="form-label text-muted small fw-bold">Update Method</label>
         <select class="form-select" id="updateType">
-            <option value="add">Add Additional Quantity (+)</option>
+            <option value="add" selected>Add Additional Quantity (+)</option>
             <option value="replace">Replace Entire Quantity (=)</option>
         </select>
     </div>
@@ -192,6 +192,10 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="input-group mb-3">
+                    <span class="input-group-text bg-light"><i class="fas fa-search"></i></span>
+                    <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Search by ID, Name, Quantity, or Price...">
+                </div>
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
@@ -271,48 +275,74 @@
             }
         });
         
-        // 2. UPDATE STOCK
-         document.getElementById('updateForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+        // ====================================================
+// UPDATE STOCK (Frontend-to-Backend Integration)
+// ====================================================
+
+// Part 1: Submit Form to Backend & Handle Frontend Alerts
+document.getElementById('updateForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const form = this; // Holds reference to the form for resetting
+    const id = document.getElementById('updateId').value;
+    const qtyValue = parseInt(document.getElementById('newQty').value, 10);
+    const updateType = document.getElementById('updateType').value;
+
+    // Match API routes in ProductController.java
+    const endpointUrl = updateType === 'add' 
+        ? `${API_BASE}/add-stock/${id}` 
+        : `${API_BASE}/update-stock/${id}`;
+
+    try {
+        const response = await fetch(endpointUrl, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(qtyValue)
+        });
+
+        if (response.ok) {
+            const isSuccess = await response.json(); // Receives true or false from Java
             
-            const id = document.getElementById('updateId').value;
-            const newQty = document.getElementById('newQty').value;
-
-
-            try {
-                // Notice the URL matches the @PutMapping in Java
-                const response = await fetch(`${API_BASE}/update-stock/${id}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: newQty
-                });
-                
-                if(response.ok) {
-                    const data = await response.json();
-                    if(data) {
-                        alert('🔄 Stock Updated Successfully!');
-                        this.reset();
-                    } else {
-                        alert('❌ Product ID not found.');
-                    }
+            if (isSuccess) {
+                // 1. Show Pop-Up Alert on Frontend
+                if (updateType === 'add') {
+                    alert('➕ Additional stock added successfully!');
+                } else {
+                    alert('🔄 Stock replaced successfully!');
                 }
-            } catch(err) {
-                alert('❌ Error updating stock.');
-            }
-        });
-        // Dynamic UI label switcher for Update Form
-        document.getElementById('updateType').addEventListener('change', function() {
-            const qtyLabel = document.getElementById('qtyLabel');
-            const qtyInput = document.getElementById('newQty');
-
-            if (this.value === 'add') {
-                qtyLabel.innerText = 'Additional Units to Add';
-                qtyInput.placeholder = 'e.g., 15 (Will add 15 to current stock)';
+                
+                // 2. Clear input fields
+                form.reset();
+                
+                // 3. Reset labels back to default state
+                document.getElementById('qtyLabel').innerText = 'Add or Update';
+                document.getElementById('newQty').placeholder = 'e.g., 15 (Adds 15 to current stock)';
+               
             } else {
-                qtyLabel.innerText = 'New Total Quantity';
-                qtyInput.placeholder = 'e.g., 25 (Will set total stock directly to 25)';
+                alert('❌ Product ID not found.');
             }
-        });
+        } else {
+            alert(`❌ Server Error: Response code ${response.status}`);
+        }
+    } catch (err) {
+        alert('❌ Unable to reach backend server. Ensure Spring Boot is running.');
+    }
+});
+
+// Part 2: Switch Frontend Labels dynamically on Dropdown Change
+document.getElementById('updateType').addEventListener('change', function() {
+    const qtyLabel = document.getElementById('qtyLabel');
+    const qtyInput = document.getElementById('newQty');
+
+    if (this.value === 'add') {
+        qtyLabel.innerText = 'Add or Update';
+        qtyInput.placeholder = 'Enter Additional quantity';
+    } else {
+        qtyLabel.innerText = 'New Total Quantity';
+        qtyInput.placeholder = 'Enter Replacing quantity';
+    }
+});
+// ====================================================
          // 3. DELETE PRODUCT
         document.getElementById('deleteForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -378,6 +408,66 @@
                 console.error(err);
             }
         }
+        // ====================================================
+// SEARCH & HIGHLIGHT FUNCTIONALITY
+// ====================================================
+document.getElementById('searchInput').addEventListener('input', function() {
+    const filter = this.value.toLowerCase();
+    const rows = document.querySelectorAll('#inventoryTableBody tr');
+
+    rows.forEach(row => {
+        // Skip the "Inventory is empty" row if it exists
+        if (row.cells.length === 1) return; 
+
+        let rowMatches = false;
+
+        Array.from(row.cells).forEach(cell => {
+            // Save the original text to prevent messing up the HTML during rapid typing
+            if (!cell.hasAttribute('data-original')) {
+                cell.setAttribute('data-original', cell.textContent);
+            }
+            
+            const originalText = cell.getAttribute('data-original');
+            
+            // If search is cleared, restore original text
+            if (filter === "") {
+                cell.innerHTML = originalText;
+                rowMatches = true;
+            } else {
+                const lowerText = originalText.toLowerCase();
+                const matchIndex = lowerText.indexOf(filter);
+                
+                // If a match is found in this specific cell
+                if (matchIndex !== -1) {
+                    rowMatches = true;
+                    // Extract parts to preserve the original casing of the text
+                    const matchedText = originalText.substring(matchIndex, matchIndex + filter.length);
+                    const beforeText = originalText.substring(0, matchIndex);
+                    const afterText = originalText.substring(matchIndex + filter.length);
+                    
+                    // Apply a Bootstrap highlight (<mark>) to the exact match
+                    cell.innerHTML = `${beforeText}<mark class="bg-warning text-dark p-0 rounded">${matchedText}</mark>${afterText}`;
+                } else {
+                    // No match in this cell, restore original text
+                    cell.innerHTML = originalText; 
+                }
+            }
+        });
+
+        // Hide the entire row if none of its cells matched the search
+        row.style.display = rowMatches ? '' : 'none';
+    });
+});
+
+// Optional but recommended: Clear the search bar every time the modal is opened
+document.getElementById('inventoryModal').addEventListener('show.bs.modal', function () {
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.value = ''; // Reset search text
+        // Trigger the input event to reset the table rows to default state
+        searchInput.dispatchEvent(new Event('input')); 
+    }
+});
     </script>
 </body>
 </html>

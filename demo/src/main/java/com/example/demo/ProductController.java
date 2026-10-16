@@ -33,14 +33,15 @@ public class ProductController {
         return inventory.addProduct(newProduct);
     }
    // 3. UPDATE PRODUCT (PUT - Stock & Price)
-   @PutMapping("/add-stock/{id}")
+  @PutMapping("/add-stock/{id}")
 public boolean addStock(@PathVariable int id, @RequestBody int additionalQty) {
-    return inventory.addStock(id, additionalQty);
+    return inventory.modifyStockQuantity(id, additionalQty, "add");
 }
-    @PutMapping("/update-stock/{id}")
-    public Product updateStock(@PathVariable int id, @RequestBody int newQuantity) {
-        return inventory.updateStock(id, newQuantity);
-    }
+
+@PutMapping("/update-stock/{id}")
+public boolean updateStock(@PathVariable int id, @RequestBody int newQuantity) {
+    return inventory.modifyStockQuantity(id, newQuantity, "replace");
+}
     // 4. DELETE PRODUCT
     @DeleteMapping("/delete-product/{id}")
     public String deleteProduct(@PathVariable int id) {
